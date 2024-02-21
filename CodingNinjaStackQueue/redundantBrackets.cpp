@@ -4,10 +4,10 @@
 
 class Stack {
 public:
-    int tos;
+    int tos = -1;
     std::vector<char> stck;
 
-    Stack() : tos(-1) {}
+    Stack(){}
 
     void push(char c) {
         tos = tos + 1;
@@ -26,7 +26,7 @@ bool findRedundantBrackets(std::string &s) {
         if (s[i] == '(' || s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/' || s[i] == ')') {
             str.push(s[i]);
         }
-        if (!str.stck.empty() && (str.stck[str.tos] == '(' && s[i] == ')')) {
+        if (str.stck[str.tos] == '(' && s[i] == ')') {
             reverse = true;
             return reverse;
         }
