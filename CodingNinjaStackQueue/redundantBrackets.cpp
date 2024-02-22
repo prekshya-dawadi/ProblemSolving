@@ -13,32 +13,55 @@ public:
         tos = tos + 1;
         stck.push_back(c);
     }
+
+    char pop(){
+        char topOfStack;
+        topOfStack = stck[tos];
+        tos = tos - 1;
+        return topOfStack;
+    }
+
+    bool isEmpty(){
+        bool Empty = false;
+        if(tos == -1){
+            Empty = true;
+        }
+        return Empty;
+    }
 };
 
 bool findRedundantBrackets(std::string &s) {
     Stack str;
-    bool reverse = false;
+    bool redundant = false;
+    std::string stack;
 
     for (int i = 0; i < s.length(); i++) {
         if (isdigit(s[i])) {
             break;
         }
-        if (s[i] == '(' || s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/' || s[i] == ')') {
+        if (s[i] == '(' || s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/' ) {
             str.push(s[i]);
         }
-        if (str.stck[str.tos] == '(' && s[i] == ')') {
-            reverse = true;
-            return reverse;
+        if (s[i] == ')') {
+            stack = "";
+            while (!str.isEmpty() && str.stck[str.tos] != '(') {
+                stack = stack + str.pop();
+            }
+
+            if (stack == ""){
+                redundant = true;
+                return redundant;
+            }
         }
     }
-    return reverse;
+    return redundant;
 }
 
 int main() {
     std::string s = "";
-    bool reverse = false;
+    bool redundant = false;
     std::cout << "Enter the expression: " << std::endl;
     std::cin >> s;
-    reverse = findRedundantBrackets(s);
-    std::cout << reverse << std::endl;
+    redundant = findRedundantBrackets(s);
+    std::cout << redundant << std::endl;
 }
