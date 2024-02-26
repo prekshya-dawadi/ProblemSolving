@@ -1,5 +1,4 @@
 #include <bits/stdc++.h> 
-#include <vector>
 
 class Deque
 {
@@ -7,24 +6,27 @@ public:
     int size;
     int front = -1;
     int rear = -1;
-    std::vector<int> deque;
+    int deque[]s
     // Initialize your data structure.
-    Deque(){}
     Deque(int n)
     {
         // Write your code here.
         size = n;
+        std::vector<int> deque[this->size];
+        std::cout<<"deque successfully initialized. "<<std::endl;
     }
 
     // Pushes 'X' in the front of the deque. Returns true if it gets pushed into the deque, and false otherwise.
     bool pushFront(int x)
     {
         // Write your code here.
-        if(!this.isFull()){
-            for (int i = this->size; i>=0; i--){
-                deque[i+1] = deque[i];
+        if(!this->isFull()){
+            if (front == -1) {
+                front = 0;
+                rear = 0;
             }
-            deque[front] = x;
+            .insert(0, x);
+            std::cout<<"pushFront successful in its operation. "<<std::endl;
             return true;
         }
         return false;
@@ -35,22 +37,35 @@ public:
     {
         // Write your code here.
         if(!this->isFull()){
-            rear = rear + 1;
+            if (rear == -1) {
+                front = 0;
+                rear = 0;
+            }      
+            rear = (rear + 1)%size;
             deque[rear] = x;
+            std::cout<<"pushRear returns true. "<<std::endl;
             return true;
         }
+        std::cout<<"pushrear returns false. "<<std::endl;
         return false;
     }
 
     // Pops an element from the front of the deque. Returns -1 if the deque is empty, otherwise returns the popped element.
     int popFront()
     {
-        int value = 0;
+        int value = -1;
         // Write your code here.
         if(!this->isEmpty()){
             value = deque[front];
-            front += 1;
+            if (front == rear) {
+                // The deque becomes empty after the pop
+                front = -1;
+                rear = -1;
+            } else {
+                front = (front+1)%size;
+            }
         }
+        std::cout<<"Front successfully popped. "<<std::endl;
         return value;
     }
 
@@ -61,8 +76,15 @@ public:
         if(!this->isEmpty()){
             // Write your code here.
             value = deque[rear];
-            rear -= 1;
+            if (front == rear) {
+                // The deque becomes empty after the pop
+                front = -1;
+                rear = -1;
+            } else {
+                rear -= 1;
+            }
         }
+        std::cout<<"rear successfully popped. "<<std::endl;
         return value;
     }
 
@@ -70,9 +92,11 @@ public:
     int getFront()
     {
         // Write your code here.
-        if(front == rear == -1){
+        if(front == -1 && rear == -1){
+            std::cout<<"getfront returns empty. "<<std::endl;
             return -1;
         }else{
+            std::cout<<"getfront returns front value. "<<std::endl;
             return deque[front];
         }
     }
@@ -81,9 +105,11 @@ public:
     int getRear()
     {
         // Write your code here.
-        if(front == rear == -1){
+        if(front == -1 && rear == -1){
+            std::cout<<"getrear returns empty. "<<std::endl;
             return -1;
         }else{
+            std::cout<<"getrear returns rear value. "<<std::endl;
             return deque[rear];
         }
     }
@@ -92,9 +118,11 @@ public:
     bool isEmpty()
     {
         // Write your code here.
-        if(front == rear == -1){
+        if(front == -1 && rear == -1){
+            std::cout<<"isEmpty returns empty."<<std::endl;
             return true;
         }
+        std::cout<<"isEmpty returns not empty."<<std::endl;
         return false;
     }
 
@@ -103,8 +131,10 @@ public:
     {
         // Write your code here.
         if (rear >= size){
+            std::cout<<"isFull returns true. "<<std::endl;
             return true;
         }
+        std::cout<<"isFull returns false. "<<std::endl;
         return false;
     }
 };
@@ -112,14 +142,14 @@ public:
 int main(){
     Deque deque(10);
     bool empty = deque.isEmpty();
-    std::cout << empty << std::endl;
+    std::cout << "return empty status: "<< empty << std::endl;
     bool pushfront = deque.pushFront(10);
     std::cout << "pushfront: "<< pushfront << std::endl;
     pushfront = deque.pushFront(20);
     std::cout << "pushfront: "<< pushfront << std::endl;
     bool pushrear = deque.pushRear(30);
     std::cout << "pushrear" << pushrear << std::endl;
-    bool getfront = deque.getFront();
+    int getfront = deque.getFront();
     std::cout << "getfront:" << getfront << std::endl;
     int poprear = deque.popRear();
     std::cout << "poprear: " << poprear << std::endl;
