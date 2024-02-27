@@ -2,17 +2,17 @@
 
 class Deque
 {
-public:
-    int size;
-    int front = -1;
-    int rear = -1;
-    int deque[]s
+    public:
+        int size;
+        int front = -1;
+        int rear = -1;
+        int *deque;
     // Initialize your data structure.
     Deque(int n)
     {
         // Write your code here.
         size = n;
-        std::vector<int> deque[this->size];
+        int deque[n] = {0};
         std::cout<<"deque successfully initialized. "<<std::endl;
     }
 
@@ -24,11 +24,16 @@ public:
             if (front == -1) {
                 front = 0;
                 rear = 0;
+                deque[front] = x;
+            } else{
+                for(int i = 0; i<this->size; i++){
+                    deque[i+1] = deque[i];
+                }
             }
-            .insert(0, x);
             std::cout<<"pushFront successful in its operation. "<<std::endl;
             return true;
         }
+        std::cout<<"pushFront returns false.";
         return false;
     }
 
