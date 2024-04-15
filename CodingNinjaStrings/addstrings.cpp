@@ -4,24 +4,30 @@
 using namespace std;
 
 string stringSum(string &num1, string &num2){
-    int len1, len2, result=0;
+    int i, j, result=0, digit1=0, digit2=0, carry = 0;
     string n1;
     string n2;
-    len1 = num1.length();
-    len2 = num2.length();
+    i = num1.length();
+    j = num2.length();
 
-    cout <<n1 << " " << n2 << endl;
-    for (int i = 0; i<len1; i++){
-        // n1 += num1[i] * pow(10, i);
-        n1 = num1[1];
-        cout << n1<<endl;
+    while (i>= 0 || j>=0){
+        if (i>=0)
+            digit1 = int(num1[i]);
+        else 
+            digit1 = 0;
+        if (j>=0)
+            digit2 = int(num2[i]);
+        else 
+            digit2 = 0;
+        
+        result = digit1 + digit2 + carry
+        
+        
     }
-    for (int i = 0; i<len2; i++){
-        // n2 += num2[i] * pow(10, i);
-        n2 = num2[0];
-        cout << n2<<endl;
-    }
-    // result = n1 + n2;
+
+    int carry = 0;
+    // sum
+    
     return to_string(result);
 }
 
